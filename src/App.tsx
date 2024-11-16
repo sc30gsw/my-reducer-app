@@ -1,30 +1,16 @@
 import { useReducer } from "react";
 
 function App() {
-	const [count, dispatch] = useReducer(
-		(state: number, action: number) => state + action,
-		0,
-	);
+	const [checked, toggle] = useReducer((state: boolean) => !state, false);
 
 	return (
 		<div className="flex flex-col items-center justify-center min-h-dvh w-screen">
-			<p className="text-2xl font-bold">Count: {count}</p>
-			<div className="flex gap-4 mt-4">
-				<button
-					type="button"
-					className="bg-blue-500 text-white px-4 py-2 rounded-full"
-					onClick={() => dispatch(1)}
-				>
-					+
-				</button>
-				<button
-					type="button"
-					className="bg-blue-500 text-white px-4 py-2 rounded-full"
-					onClick={() => dispatch(-1)}
-				>
-					-
-				</button>
-			</div>
+			<input
+				type="checkbox"
+				className="cursor-pointer w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+				checked={checked}
+				onChange={toggle}
+			/>
 		</div>
 	);
 }
