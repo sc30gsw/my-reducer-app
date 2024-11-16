@@ -2,7 +2,7 @@ import { useReducer } from "react";
 
 function App() {
 	const [state, dispatch] = useReducer(
-		(_: unknown, action: number) => `${action}円`,
+		(_: unknown, action: number) => `${Math.round(action * 1.08)}円`,
 		"0円",
 	);
 	return (
