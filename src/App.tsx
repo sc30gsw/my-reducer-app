@@ -1,21 +1,41 @@
 import { useReducer } from "react";
 
+type User = {
+	name: string;
+	age: number;
+};
+
 function App() {
-	const [state, dispatch] = useReducer(
-		(_: unknown, action: number) => `${Math.round(action * 1.08)}円`,
-		"0円",
+	const [user, dispatch] = useReducer(
+		(state: User, action: Partial<User>) => ({
+			...state,
+			...action,
+		}),
+		{ name: "", age: 0 },
 	);
 	return (
 		<div className="flex flex-col items-center justify-center min-h-dvh w-screen">
-			<div>{state}</div>
-			<input
-				type="number"
-				className="block w-3/4 p-4 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500"
-				onChange={(e) => {
-					const { value } = e.target;
-					dispatch(Number(value));
-				}}
-			/>
+			<div>
+				{user.name} / {user.age}歳
+			</div>
+			<div className="flex w-3/4 flex-col items-center justify-center gap-4">
+				<input
+					type="text"
+					className="block p-4 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500"
+					onChange={(e) => {
+						const { value } = e.target;
+						dispatch({ name: value });
+					}}
+				/>
+				<input
+					type="number"
+					className="block p-4 w-full text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500"
+					onChange={(e) => {
+						const { value } = e.target;
+						dispatch({ age: Number(value) });
+					}}
+				/>
+			</div>
 		</div>
 	);
 }
